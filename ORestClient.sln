@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORestClient", "ORestClient\ORestClient.csproj", "{680873B0-B92A-4557-8300-8895AEEC3923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORestClient", "src\ORestClient\ORestClient.csproj", "{680873B0-B92A-4557-8300-8895AEEC3923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORestClient.DebugConsole", "ORestClient.DebugConsole\ORestClient.DebugConsole.csproj", "{62A1C1D7-9ABC-4434-8AF5-966942215245}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORestClient.DebugConsole", "src\ORestClient.DebugConsole\ORestClient.DebugConsole.csproj", "{62A1C1D7-9ABC-4434-8AF5-966942215245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
