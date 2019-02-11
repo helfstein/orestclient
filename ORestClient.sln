@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORestClient.DebugConsole", "src\ORestClient.DebugConsole\ORestClient.DebugConsole.csproj", "{62A1C1D7-9ABC-4434-8AF5-966942215245}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORestClient.Samples", "src\ORestClient.DebugConsole\ORestClient.Samples.csproj", "{62A1C1D7-9ABC-4434-8AF5-966942215245}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORest", "src\ORest\ORest.csproj", "{082E0A12-6EBD-4CCA-BE12-016DBADAE5DC}"
 EndProject
