@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ORest;
+using ORest.Interfaces;
 using ORestClient.DebugConsole.ODataEntities;
-using ORestClient.Interfaces;
 
 namespace ORestClient.DebugConsole {
     class Program {
@@ -15,7 +16,7 @@ namespace ORestClient.DebugConsole {
                     BaseUrl = $"{endpoint}",
                     ImplementationType = ODataImplementation.ODataV4
                 };
-                gwClient = new ORestClient(settings);
+                gwClient = new ORest.ORestClient(settings);
                 var username = DateTime.Now.ToString("yyyMMddhhmmss");
                 var person = new Person {
                     UserName = username,

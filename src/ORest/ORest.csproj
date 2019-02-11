@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>ORest</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>ORest</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Helfstein</Authors>
+    <Company>Helfstein</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/helfstein/orestclient</PackageProjectUrl>
+    <Copyright>Helfstein</Copyright>
+    <RepositoryUrl>https://github.com/helfstein/orestclient</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <Description>It's a small odata client for usage in any NETStandard 2.0 Project</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>
