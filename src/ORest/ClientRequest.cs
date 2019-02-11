@@ -293,6 +293,7 @@ namespace ORest {
             }
 
             var props = fields.ExtractColumnNames(_typeCache);
+            //props = Utils.GetCustomNamedProps<T>(props);
             var selectedFields = string.Join(",", props);
             if (!queryParams.ContainsKey("$select")) {
                 queryParams.Add("$select", selectedFields);
@@ -332,6 +333,7 @@ namespace ORest {
             }
 
             var props = fields.ExtractColumnNames(_typeCache);
+            //props = Utils.GetCustomNamedProps<T>(props);
             var selectedFields = string.Join(",", props);
             if (!queryParams.ContainsKey("$expand")) {
                 queryParams.Add("$expand", selectedFields);
@@ -427,6 +429,7 @@ namespace ORest {
                 throw new ArgumentNullException($"Key need to be informed.");
 
             var props = exp.ExtractColumnNames(_typeCache);
+            //props = Utils.GetCustomNamedProps<T>(props);
             var selectedPath = props.FirstOrDefault();
             return new ClientRequest<U>(_client, _settings, $"{_path}({_key})/{selectedPath}");
         }

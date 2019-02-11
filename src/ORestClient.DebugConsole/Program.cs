@@ -6,7 +6,7 @@ using ORest;
 using ORest.Interfaces;
 using ORestClient.DebugConsole.ODataEntities;
 
-namespace ORestClient.DebugConsole {
+namespace ORestClient.Samples {
     class Program {
         private static IORestClient gwClient;
         static async Task Main() {
@@ -87,6 +87,10 @@ namespace ORestClient.DebugConsole {
                     lista4 = await gwClient.For<Person>("People").FindEntriesAsync();
                     Console.WriteLine($"{lista4.Count()} depois deletado");
 
+                    var customAttrName = await gwClient.For<Person>("People")
+                        .Expand(x => x.AllFriends)
+                        .FindEntriesAsync();
+                    Console.WriteLine($"{customAttrName.Count()} depois deletado");
                 }
                 catch (Exception e) {
                     Console.WriteLine(e);

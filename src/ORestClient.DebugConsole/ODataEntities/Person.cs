@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using ORest;
 
 namespace ORestClient.DebugConsole.ODataEntities {
     public class Person {
@@ -21,9 +23,11 @@ namespace ORestClient.DebugConsole.ODataEntities {
         public Location HomeAddress { get; set; }
         public Feature? FavoriteFeature { get; set; }
         public List<Feature> Features { get; set; }
-
         public Person BestFriend { get; set; }
-        public List<Person> Friends { get; set; }
+
+        //[ORestProperty("Friends")]
+        [JsonProperty("Friends")]
+        public List<Person> AllFriends { get; set; }
 
     }
 }

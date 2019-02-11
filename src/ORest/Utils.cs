@@ -10,6 +10,7 @@ using ORest.Interfaces;
 
 namespace ORest {
     static class Utils {
+
         public static string StreamToString(Stream stream, bool disposeStream = false) {
             if (!disposeStream && stream.CanSeek)
                 stream.Seek(0, SeekOrigin.Begin);
