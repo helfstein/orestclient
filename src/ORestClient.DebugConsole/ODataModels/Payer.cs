@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using ORest;
 
 namespace ORestClient.Samples.ODataModels {
     //=============================================================================================
@@ -19,12 +20,14 @@ namespace ORestClient.Samples.ODataModels {
         //-----------------------------------------------------------------------------------------
         public string Name { get; set; }
         //-----------------------------------------------------------------------------------------
-        [DataMember(Name = "ToCustomer")]
+        //[JsonProperty("ToCustomer")]
+        [JsonProperty("ToCustomer")]
+        [JsonConverter(typeof(ORestPropListConverter), "results")]
         //[SQLite.Ignore]
         public List<Customer> Customers { get; set; }
         //-----------------------------------------------------------------------------------------
         #endregion
-
+        
     }
     //=============================================================================================
 }
