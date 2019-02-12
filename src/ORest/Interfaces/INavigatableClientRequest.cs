@@ -21,5 +21,9 @@ namespace ORest.Interfaces {
 
         IUnboundClientRequest Unbound();
 
+        new INavigatableClientRequest<T> Expand(string[] fields);
+
+        new INavigatableClientRequest<T> Expand(Expression<Func<T, object>> fields);
+
     }
 }

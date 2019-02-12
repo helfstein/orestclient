@@ -76,7 +76,11 @@ namespace ORest {
         public virtual async Task<T> FindEntryAsync() {
             if (_key == null)
                 throw new ArgumentNullException($"Key needed to be informed.");
+            var query = BuildQuery();
+            query = !string.IsNullOrWhiteSpace(query) ? $"?{query}" : string.Empty;
             _path = $"{_path}({_key})";
+            _path = $"{_path}{query}";
+            _path = MakeUrl(_path);
             T thing;
             try {
                 var request = await SetHeaders(HttpMethod.Get, _path);
@@ -321,7 +325,6 @@ namespace ORest {
             queryParams["$expand"] = selectedFields;
             return this;
         }
-
         //-----------------------------------------------------------------------------------------
         public IClientRequest<T> Expand(Expression<Func<T, object>> fields) {
             if (fields == null) {
@@ -342,7 +345,14 @@ namespace ORest {
             queryParams["$expand"] = selectedFields;
             return this;
         }
-
+        //-----------------------------------------------------------------------------------------
+        INavigatableClientRequest<T> INavigatableClientRequest<T>.Expand(Expression<Func<T, object>> fields) {
+            return (INavigatableClientRequest<T>)Expand(fields);
+        }
+        //-----------------------------------------------------------------------------------------
+        INavigatableClientRequest<T> INavigatableClientRequest<T>.Expand(string[] fields) {
+            return (INavigatableClientRequest<T>)Expand(fields);
+        }
         //-----------------------------------------------------------------------------------------
         public IClientRequest<T> Filter(Expression<Func<T, bool>> exp) {
             if (exp == null) {
@@ -393,7 +403,22 @@ namespace ORest {
                     $"'{oKey}'";
             }
             else {
-                _key = Convert.ToString(key);
+                var t = key.GetType();
+                var props = t.GetProperties();
+
+                if (props.Length == 0) {
+                    throw new ArgumentNullException($"key is a empty object.");
+                }
+                var pars = new List<string>();
+                foreach (var prop in props) {
+                    var par = $"{prop.Name}";
+                    par = prop.PropertyType == typeof(string)
+                        ? $"{par}='{prop.GetValue(key)}'" 
+                        : $"{par}={prop.GetValue(key)}";
+                    pars.Add(par);
+                }
+
+                _key = string.Join(",", pars);
             }
             return this;
         }

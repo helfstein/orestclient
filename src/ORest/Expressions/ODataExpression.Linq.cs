@@ -18,6 +18,12 @@ namespace ORest.Expressions {
                 case ExpressionType.Lambda:
                 return ParseLambdaExpression(expression);
 
+                case ExpressionType.Invoke:
+                    if (expression is InvocationExpression invocationExpression) {
+                        return ParseLinqExpression(invocationExpression.Expression);
+                    }
+                    break;
+
                 case ExpressionType.Constant:
                 return ParseConstantExpression(expression);
 

@@ -75,7 +75,7 @@ namespace ORest {
                 var requestPath = !string.IsNullOrWhiteSpace(_path)
                     ? $"{_path}{callPath}"
                     : callPath;
-
+                requestPath = MakeUrl(requestPath);
                 var request = await SetHeaders(_executionMethod, requestPath);
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (_data != null) {
@@ -113,6 +113,7 @@ namespace ORest {
                 var requestPath = !string.IsNullOrWhiteSpace(_path)
                     ? $"{_path}{callPath}"
                     : callPath;
+                requestPath = MakeUrl(requestPath);
                 var request = await SetHeaders(_executionMethod, requestPath);
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (_data != null) {
@@ -149,7 +150,7 @@ namespace ORest {
                 var requestPath = !string.IsNullOrWhiteSpace(_path)
                     ? $"{_path}{callPath}"
                     : callPath;
-
+                requestPath = MakeUrl(requestPath);
                 var request = await SetHeaders(_executionMethod, requestPath);
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 if (_data != null) {
@@ -240,7 +241,7 @@ namespace ORest {
                 var requestPath = !string.IsNullOrWhiteSpace(_path)
                     ? $"{_path}{callPath}"
                     : callPath;
-
+                requestPath = MakeUrl(requestPath);
                 var request = await SetHeaders(_executionMethod, requestPath);
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

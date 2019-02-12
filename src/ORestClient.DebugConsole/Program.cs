@@ -9,7 +9,9 @@ using ORestClient.DebugConsole.ODataEntities;
 namespace ORestClient.Samples {
     class Program {
         private static IORestClient gwClient;
+
         static async Task Main() {
+            
             try {
                 var endpoint = "https://services.odata.org/TripPinRESTierService/(S(hbowmd53ddktxwjlfwnnn4op))/";
                 var settings = new ORestClientSettings {
@@ -104,8 +106,8 @@ namespace ORestClient.Samples {
             }
 
             Console.ReadKey();
+
+
         }
-
-
     }
 }
