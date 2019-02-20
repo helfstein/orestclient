@@ -26,6 +26,8 @@ namespace ORest {
             _path = path;
         }
 
+
+
         public IExecutableClientRequest<T> Function(string path) {
             if (string.IsNullOrWhiteSpace(path)) {
                 throw new ArgumentNullException($"path is required.");
@@ -41,7 +43,7 @@ namespace ORest {
             if (parameters == null || parameters.Keys.Count == 0) {
                 throw new ArgumentNullException($"parameters is required in this method.");
             }
-            
+            _executionMethod = HttpMethod.Get;
             var pars = new List<string>();
 
             foreach (var key in parameters.Keys) {
@@ -49,14 +51,24 @@ namespace ORest {
             }
 
             var funcParams = string.Join(",", pars);
-
-            callPath = $"{functionName}({funcParams})";
+            callPath = _settings.ImplementationType == ODataImplementation.SapGateway 
+                ? $"{functionName}?{funcParams}" 
+                : $"{functionName}({funcParams})";
+            
             return this;
         }
 
+
+
         public IExecutableClientRequest<T> Action(string actionName, object data) {
             _data = data;
+            _executionMethod = HttpMethod.Post;
             return Action(actionName);
+        }
+
+        public IExecutableClientRequest<T> UseMethod(Method method) {
+            _executionMethod = method == Method.Get ? HttpMethod.Get : HttpMethod.Post;
+            return this;
         }
 
         public IExecutableClientRequest<T> Action(string actionName) {
@@ -199,6 +211,7 @@ namespace ORest {
                 throw new ArgumentNullException($"path is required.");
             }
             callPath = path;
+            _executionMethod = HttpMethod.Get;
             return this;
         }
 
@@ -209,7 +222,7 @@ namespace ORest {
             if (parameters == null || parameters.Keys.Count == 0) {
                 throw new ArgumentNullException($"parameters is required in this method.");
             }
-
+            _executionMethod = HttpMethod.Get;
             var pars = new List<string>();
 
             foreach (var key in parameters.Keys) {
@@ -218,7 +231,9 @@ namespace ORest {
 
             var funcParams = string.Join(",", pars);
 
-            callPath = $"{functionName}({funcParams})";
+            callPath = _settings.ImplementationType == ODataImplementation.SapGateway
+                ? $"{functionName}?{funcParams}"
+                : $"{functionName}({funcParams})";
             return this;
         }
 
@@ -234,6 +249,11 @@ namespace ORest {
         public IExecutableClientRequest Action(string actionName, object data) {
             _data = data;
             return Action(actionName);
+        }
+
+        public IExecutableClientRequest UseMethod(Method method) {
+            _executionMethod = method == Method.Get ? HttpMethod.Get : HttpMethod.Post;
+            return this;
         }
 
         public async Task ExecuteAsync() {

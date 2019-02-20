@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>ORest</PackageId>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <Authors>Helfstein</Authors>
     <Company>Helfstein</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
