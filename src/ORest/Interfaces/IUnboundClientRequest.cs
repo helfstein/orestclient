@@ -12,7 +12,7 @@ namespace ORest.Interfaces {
 
         IExecutableClientRequest<T> Action(string actionName, object data);
 
-        IExecutableClientRequest<T> UseMethod(Method method);
+        
 
     }
     public interface IUnboundClientRequest {
@@ -25,7 +25,7 @@ namespace ORest.Interfaces {
 
         IExecutableClientRequest Action(string actionName, object data);
 
-        IExecutableClientRequest UseMethod(Method method);
+        
 
     }
 
@@ -36,13 +36,16 @@ namespace ORest.Interfaces {
         Task<IEnumerable<T>> ExecuteAsEnumerableAsync();
 
         Task ExecuteAsync();
+        IExecutableClientRequest<T> UseMethod(Method method);
+        
 
     }
 
     public interface IExecutableClientRequest {
         
-        Task ExecuteAsync();
+        IExecutableClientRequest UseMethod(Method method);
 
+        Task ExecuteAsync();
     }
 
     public enum Method {

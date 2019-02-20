@@ -61,7 +61,7 @@ namespace ORestClient.Samples {
                             tripId = 0
                         })
                         .ExecuteAsync();
-
+                    //await gwClient.Unbound<Person>().Function("").UseMethod(Method.Get).ExecuteAsync()
                     var lista4 = await gwClient.For<Person>("People")
                         .FindEntriesAsync();
                     Console.WriteLine($"{lista4.Count()} antes");
