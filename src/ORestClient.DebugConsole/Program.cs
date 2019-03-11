@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ORest;
 using ORest.Interfaces;
@@ -13,12 +14,27 @@ namespace ORestClient.Samples {
         static async Task Main() {
             
             try {
-                var endpoint = "https://services.odata.org/TripPinRESTierService/(S(hbowmd53ddktxwjlfwnnn4op))/";
+                var endpoint = "https://services.odata.org/TripPinRESTierService/(S(vr5pauqj22rd43uupqjzuq2k))/";
                 var settings = new ORestClientSettings {
                     BaseUrl = $"{endpoint}",
+                    UseBasicAuth = false,
                     ImplementationType = ODataImplementation.ODataV4
                 };
+
                 gwClient = new ORest.ORestClient(settings);
+                Expression<Func<Person, bool>> exp = p => p.FirstName == "Russell";
+
+                var nome = "Mundy";
+
+                if (!string.IsNullOrWhiteSpace(nome)) {
+                    exp.And(p => p.FirstName.Equals(nome));
+                }
+
+                var av = await gwClient.For<Person>("People").Filter(exp).Expand(x=>x.AllFriends).FindEntriesAsync();
+
+                var friends = await gwClient.For<Person>("People").Key("russellwhyte")
+                    .Navigate<Person>(x => x.AllFriends).Expand(x => x.AllFriends).FindEntriesAsync();
+                
                 var username = DateTime.Now.ToString("yyyMMddhhmmss");
                 var person = new Person {
                     UserName = username,

@@ -50,7 +50,7 @@ namespace ORest {
                 pars.Add($"{key}={parameters[key]}");
             }
 
-            var funcParams = string.Join(",", pars);
+            var funcParams = string.Join("&", pars);
             callPath = _settings.ImplementationType == ODataImplementation.SapGateway 
                 ? $"{functionName}?{funcParams}" 
                 : $"{functionName}({funcParams})";
@@ -229,7 +229,7 @@ namespace ORest {
                 pars.Add($"{key}={parameters[key]}");
             }
 
-            var funcParams = string.Join(",", pars);
+            var funcParams = string.Join("&", pars);
 
             callPath = _settings.ImplementationType == ODataImplementation.SapGateway
                 ? $"{functionName}?{funcParams}"
