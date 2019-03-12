@@ -61,17 +61,23 @@ namespace ORest {
                     lst = DeserializeList<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
-                    }
-                    catch (Exception) {
-                        //Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
-                    }
-                }
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
 
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
+                    }
+
+                    throw excp;
+                }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -104,16 +110,23 @@ namespace ORest {
                     thing = DeserializeObject<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
                     }
                     catch (Exception e) {
                         Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
                     }
+
+                    throw excp;
                 }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -149,16 +162,23 @@ namespace ORest {
                     thing = DeserializeObject<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
                     }
-                    catch (Exception) {
-                        //Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
                     }
+
+                    throw excp;
                 }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -199,16 +219,23 @@ namespace ORest {
                     thing = DeserializeObject<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
                     }
-                    catch (Exception) {
-                        //Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
                     }
+
+                    throw excp;
                 }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -248,16 +275,23 @@ namespace ORest {
                     thing = DeserializeObject<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
                     }
-                    catch (Exception) {
-                        //Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
                     }
+
+                    throw excp;
                 }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -287,16 +321,23 @@ namespace ORest {
                     thing = DeserializeObject<T>(content);
                 }
                 else {
+                    ORestRequestException excp;
                     try {
                         var content = await response.Content.ReadAsStringAsync();
-                        var excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
-                        throw excp;
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
                     }
-                    catch (Exception) {
-                        //Console.WriteLine(e);
-                        throw new ORestRequestException(await response.Content.ReadAsStringAsync(), response.StatusCode);
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
                     }
+
+                    throw excp;
                 }
+            }
+            catch (ORestRequestException) {
+                throw;
             }
             catch (Exception e) {
                 Console.WriteLine(e);

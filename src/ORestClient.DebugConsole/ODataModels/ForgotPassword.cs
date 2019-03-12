@@ -1,9 +1,12 @@
-﻿namespace ORestClient.Samples.ODataModels {
+﻿using Newtonsoft.Json;
+
+namespace ORestClient.Samples.ODataModels {
     //=============================================================================================
     public class ForgotPassword {
 
         #region Properties
         //-----------------------------------------------------------------------------------------
+        [JsonProperty("username")]
         public string Username { get; set; }
         //-----------------------------------------------------------------------------------------
         #endregion
