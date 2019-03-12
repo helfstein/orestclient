@@ -6,6 +6,7 @@ namespace ORest.Models {
 
         #region Properties
         //-----------------------------------------------------------------------------------------
+        [JsonProperty("code")]
         public string Code { get; set; }
         //-----------------------------------------------------------------------------------------
         [JsonProperty("message")]
