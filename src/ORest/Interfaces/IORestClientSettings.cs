@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ORest.Interfaces {
     //=============================================================================================
@@ -32,6 +33,8 @@ namespace ORest.Interfaces {
         TimeSpan Timeout { get; set; }
         //-----------------------------------------------------------------------------------------
         string Language { get; set; }
+        //-----------------------------------------------------------------------------------------
+        DateParseHandling? DateParseHandling { get; set; }
         //-----------------------------------------------------------------------------------------
         #endregion
 
