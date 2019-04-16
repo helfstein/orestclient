@@ -23,13 +23,15 @@ namespace ORest {
 
         protected R DeserializeObject<R>(string data) where R : class {
             R ret = null;
+            var serializeSettings = new JsonSerializerSettings();
+            serializeSettings.DateParseHandling = _settings.DateParseHandling ?? serializeSettings.DateParseHandling;
             switch (_settings.ImplementationType) {
                 case ODataImplementation.ODataV4:
-                    var resV4 = JsonConvert.DeserializeObject<R>(data);
+                    var resV4 = JsonConvert.DeserializeObject<R>(data, serializeSettings);
                     ret = resV4;
                     break;
                 case ODataImplementation.SapGateway:
-                    var resSap = JsonConvert.DeserializeObject<Entity<R>>(data);
+                    var resSap = JsonConvert.DeserializeObject<Entity<R>>(data, serializeSettings);
                     ret = resSap.Content;
                     break;
             }
