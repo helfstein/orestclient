@@ -34,7 +34,7 @@ namespace ORest.Interfaces {
         //-----------------------------------------------------------------------------------------
         string Language { get; set; }
         //-----------------------------------------------------------------------------------------
-        DateParseHandling? DateParseHandling { get; set; }
+        JsonSerializerSettings JsonSerializerSettings { get; set; }
         //-----------------------------------------------------------------------------------------
         #endregion
 

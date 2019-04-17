@@ -35,7 +35,7 @@ namespace ORest {
         //-----------------------------------------------------------------------------------------
         public string Language { get; set; }
         //-----------------------------------------------------------------------------------------
-        public DateParseHandling? DateParseHandling { get; set; }
+        public JsonSerializerSettings JsonSerializerSettings { get; set; }
         //-----------------------------------------------------------------------------------------
         #endregion
 

@@ -24,7 +24,7 @@ namespace ORest {
         protected R DeserializeObject<R>(string data) where R : class {
             R ret = null;
             var serializeSettings = new JsonSerializerSettings();
-            serializeSettings.DateParseHandling = _settings.DateParseHandling ?? serializeSettings.DateParseHandling;
+            serializeSettings = _settings.JsonSerializerSettings ?? serializeSettings;
             switch (_settings.ImplementationType) {
                 case ODataImplementation.ODataV4:
                     var resV4 = JsonConvert.DeserializeObject<R>(data, serializeSettings);
@@ -43,14 +43,13 @@ namespace ORest {
         protected IEnumerable<R> DeserializeList<R>(string data) where R : class {
             IEnumerable<R> ret = null;
             var serializeSettings = new JsonSerializerSettings();
-            serializeSettings.DateParseHandling = _settings.DateParseHandling ?? serializeSettings.DateParseHandling;
+            serializeSettings = _settings.JsonSerializerSettings ?? serializeSettings;
             switch (_settings.ImplementationType) {
                 case ODataImplementation.ODataV4:
                     var resV4 = JsonConvert.DeserializeObject<V4ListEntity<R>>(data, serializeSettings);
                     ret = resV4.Value;
                     break;
                 case ODataImplementation.SapGateway:
-                    
                     var resSap = JsonConvert.DeserializeObject<ListEntity<IEnumerable<R>>>(data, serializeSettings);
                     ret = resSap.Content.Results;
                     break;
