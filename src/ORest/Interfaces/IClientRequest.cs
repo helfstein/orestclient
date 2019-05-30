@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace ORest.Interfaces {
     public interface IClientRequest<T> where T : class {
+        /// <summary>
+        /// Retunrs a Collenction of EntitySets names
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<T>> Authenticate();
 
         Task<IEnumerable<T>> FindEntriesAsync();
         

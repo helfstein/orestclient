@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>ORest</PackageId>
-    <Version>1.0.16</Version>
+    <Version>1.0.17</Version>
     <Authors>Helfstein</Authors>
     <Company>Helfstein</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 </Project>

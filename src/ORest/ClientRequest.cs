@@ -39,6 +39,51 @@ namespace ORest {
 
         #region Interface Implementation
         //-----------------------------------------------------------------------------------------
+        public virtual async Task<IEnumerable<T>> Authenticate() {
+            IEnumerable<T> lst;
+            try {
+                _path = string.Empty;
+                var request = await SetHeaders(HttpMethod.Get, _path);
+                if (_settings.BeforeRequestAsync != null) {
+                    request = await _settings.BeforeRequestAsync.Invoke(request);
+                }
+
+                var response = await _client.SendAsync(request);
+
+                _settings.TraceRequest?.Invoke(request);
+                _settings.AfterResponse?.Invoke(response);
+
+                if (response.IsSuccessStatusCode) {
+                    var content = await response.Content.ReadAsStringAsync();
+                    lst = DeserializeList<T>(content);
+                }
+                else {
+                    ORestRequestException excp;
+                    try {
+                        var content = await response.Content.ReadAsStringAsync();
+                        excp = JsonConvert.DeserializeObject<ORestRequestException>(content);
+
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine(e);
+                        excp = new ORestRequestException(await response.Content.ReadAsStringAsync(),
+                            response.StatusCode);
+                    }
+
+                    throw excp;
+                }
+            }
+            catch (ORestRequestException) {
+                throw;
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                throw new ORestRequestException(e.Message, e);
+            }
+
+            return lst;
+        }
+        //-----------------------------------------------------------------------------------------
         public virtual async Task<IEnumerable<T>> FindEntriesAsync() {
             IEnumerable<T> lst;
             try {
@@ -605,7 +650,6 @@ namespace ORest {
 
             return query;
         }
-
         //-----------------------------------------------------------------------------------------
         protected string GetUrlExpression(Expression<Func<T, bool>> exp) {
 

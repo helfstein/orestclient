@@ -1,16 +1,11 @@
-﻿using Newtonsoft.Json;
-
-namespace ORest.Models {
+﻿namespace ORestClient.Samples {
     //=============================================================================================
-    public class EntityContent<T> where T : class {
-
+    public abstract class BaseModel {
+        
         #region Properties
         //-----------------------------------------------------------------------------------------
-        [JsonProperty("results")]
-        public T Results { get; set; }
-        //-----------------------------------------------------------------------------------------
-        [JsonProperty("EntitySets")]
-        public T EntitySets { get; set; }
+        //[SQLite.PrimaryKey, SQLite.AutoIncrement]
+        public long Id { get; set; } = -1;
         //-----------------------------------------------------------------------------------------
         #endregion
 

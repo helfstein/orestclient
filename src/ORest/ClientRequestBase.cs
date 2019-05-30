@@ -10,35 +10,45 @@ using ORest.Interfaces;
 using ORest.Models;
 
 namespace ORest {
+    //=============================================================================================
     public class ClientRequestBase {
 
+        #region Variables
+        //-----------------------------------------------------------------------------------------
         protected readonly HttpClient _client;
-        
+        //-----------------------------------------------------------------------------------------
         protected readonly IORestClientSettings _settings;
+        //-----------------------------------------------------------------------------------------
+        #endregion
 
+        #region Constructor
+        //-----------------------------------------------------------------------------------------
         public ClientRequestBase(HttpClient client, IORestClientSettings settings) {
             _client = client;
             _settings = settings;
         }
-
+        //-----------------------------------------------------------------------------------------
+        #endregion
+            
+        #region Methods
+        //-----------------------------------------------------------------------------------------
         protected R DeserializeObject<R>(string data) where R : class {
             R ret = null;
             var serializeSettings = new JsonSerializerSettings();
             serializeSettings = _settings.JsonSerializerSettings ?? serializeSettings;
             switch (_settings.ImplementationType) {
                 case ODataImplementation.ODataV4:
-                    var resV4 = JsonConvert.DeserializeObject<R>(data, serializeSettings);
-                    ret = resV4;
-                    break;
+                var resV4 = JsonConvert.DeserializeObject<R>(data, serializeSettings);
+                ret = resV4;
+                break;
                 case ODataImplementation.SapGateway:
-                    var resSap = JsonConvert.DeserializeObject<Entity<R>>(data, serializeSettings);
-                    ret = resSap.Content;
-                    break;
+                var resSap = JsonConvert.DeserializeObject<Entity<R>>(data, serializeSettings);
+                ret = resSap.Content;
+                break;
             }
 
             return ret;
         }
-
         //-----------------------------------------------------------------------------------------
         protected IEnumerable<R> DeserializeList<R>(string data) where R : class {
             IEnumerable<R> ret = null;
@@ -46,23 +56,24 @@ namespace ORest {
             serializeSettings = _settings.JsonSerializerSettings ?? serializeSettings;
             switch (_settings.ImplementationType) {
                 case ODataImplementation.ODataV4:
-                    var resV4 = JsonConvert.DeserializeObject<V4ListEntity<R>>(data, serializeSettings);
-                    ret = resV4.Value;
-                    break;
+                var resV4 = JsonConvert.DeserializeObject<V4ListEntity<R>>(data, serializeSettings);
+                ret = resV4.Value;
+                break;
                 case ODataImplementation.SapGateway:
-                    var resSap = JsonConvert.DeserializeObject<ListEntity<IEnumerable<R>>>(data, serializeSettings);
-                    ret = resSap.Content.Results;
-                    break;
+                var resSap = JsonConvert.DeserializeObject<ListEntity<IEnumerable<R>>>(data, serializeSettings);
+                ret = resSap.Content.Results == null && resSap.Content.EntitySets != null
+                    ? resSap.Content.EntitySets
+                    : resSap.Content.Results;
+                break;
             }
 
             return ret;
         }
-
         //-----------------------------------------------------------------------------------------
         protected string MakeUrl(string source) {
             return source.Replace(" ", "%20").Replace("'", "%27");
         }
-
+        //-----------------------------------------------------------------------------------------
         protected async Task<HttpRequestMessage> SetHeaders(HttpMethod method, string path) {
             var url = $"{_client.BaseAddress.AbsoluteUri}{path}";
             var request = new HttpRequestMessage(method, path);
@@ -97,7 +108,6 @@ namespace ORest {
             return request;
 
         }
-
         //-----------------------------------------------------------------------------------------
         protected async Task<HttpRequestMessage> SetXCSRFToken(HttpRequestMessage request) {
             try {
@@ -130,7 +140,9 @@ namespace ORest {
 
             return request;
         }
-
+        //-----------------------------------------------------------------------------------------
+        #endregion
 
     }
+    //=============================================================================================
 }
