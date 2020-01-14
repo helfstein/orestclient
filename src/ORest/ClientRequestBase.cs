@@ -76,7 +76,7 @@ namespace ORest {
         //-----------------------------------------------------------------------------------------
         protected async Task<HttpRequestMessage> SetHeaders(HttpMethod method, string path) {
             var url = $"{_client.BaseAddress.AbsoluteUri}{path}";
-            var request = new HttpRequestMessage(method, path);
+            var request = new HttpRequestMessage(method, url);
 
             if (_settings.UseBasicAuth && request.Headers.Authorization == null) {
                 var byteArray = Encoding.ASCII.GetBytes($"{_settings.Username}:{_settings.Password}");
@@ -104,17 +104,17 @@ namespace ORest {
                 request.RequestUri = new Uri(url);
                 break;
             }
-
+            
             return request;
 
         }
         //-----------------------------------------------------------------------------------------
         protected async Task<HttpRequestMessage> SetXCSRFToken(HttpRequestMessage request) {
             try {
-                if (!string.IsNullOrWhiteSpace(_settings.XsrfToken)) {
-                    request.Headers.Add("X-CSRF-Token", _settings.XsrfToken);
-                    return request;
-                }
+                //if (!string.IsNullOrWhiteSpace(_settings.XsrfToken)) {
+                //    request.Headers.Add("X-CSRF-Token", _settings.XsrfToken);
+                //    return request;
+                //}
                 var metaUrl = $"{_settings.BaseUrl}?$format=json";
                 var req = new HttpRequestMessage(HttpMethod.Get, metaUrl);
                 req.Headers.Authorization = request.Headers.Authorization;

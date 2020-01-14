@@ -40,6 +40,14 @@ namespace ORestClient.Samples {
             get;
             set;
         }
-       
+        [JsonConverter(typeof(ORestPropListConverter), "results")]
+        public List<ResultMessages> ToResultMessages {
+            get;
+            set;
+        }
+        public ResultDetail ToResultDetail {
+            get;
+            set;
+        }
     }
 }

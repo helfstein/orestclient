@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -183,10 +186,12 @@ namespace ORest {
         //-----------------------------------------------------------------------------------------
         public virtual async Task<T> InsertEntryAsync(T entry) {
             T thing;
+            HttpRequestMessage request;
+            HttpResponseMessage response;
             try {
                 var data = entry;
 
-                var request = await SetHeaders(HttpMethod.Post, _path);
+                request = await SetHeaders(HttpMethod.Post, _path);
                 if (data != null) {
                     var tmp = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings {
                         NullValueHandling = NullValueHandling.Ignore
@@ -198,8 +203,12 @@ namespace ORest {
                 if (_settings.BeforeRequestAsync != null) {
                     request = await _settings.BeforeRequestAsync.Invoke(request);
                 }
-
-                var response = await _client.SendAsync(request);
+#if DEBUG
+                ServicePointManager.ServerCertificateValidationCallback = (s, certificate, chain, sslPolicyErrors) => {
+                    return true; 
+                };
+#endif
+                response = await _client.SendAsync(request);
                 _settings.TraceRequest?.Invoke(request);
                 _settings.AfterResponse?.Invoke(response);
                 if (response.IsSuccessStatusCode) {
@@ -222,7 +231,13 @@ namespace ORest {
                     throw excp;
                 }
             }
-            catch (ORestRequestException) {
+            
+            catch (ORestRequestException ex) {
+                Console.WriteLine(ex);
+                throw;
+            }
+            catch (HttpRequestException ex) {
+                Console.WriteLine(ex);
                 throw;
             }
             catch (Exception e) {

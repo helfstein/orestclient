@@ -1,0 +1,30 @@
+{
+  "ToVehicleOfferItems": [
+    {
+      "OfferNumber": "001",
+      "OfferItemNumber": "001",
+      "Plate": "AEDL381",
+      "Coupled1": "ABHG033",
+      "Coupled2": "",
+      "Driver": "A37000051",
+      "DriverName": "CARLA MARIA MONTEVERDI",
+      "Availability": "2019-12-17T10:53:17Z",
+      "Status": "",
+      "StatusDesc": "",
+      "LoadType": "01",
+      "LoadTypeDesc": "Saco"
+    }
+  ],
+  "OfferNumber": "001",
+  "Transporter": "1008785",
+  "TransporterName": "",
+  "SalesOrg": "",
+  "Plant": "ACA0",
+  "ToResultMessages": [
+
+  ],
+  "ToResultDetail": {
+    "Success": false,
+    "HeaderMessage": ""
+  }
+}
